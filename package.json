@@ -1,0 +1,17 @@
+{
+  "name": "udp-telemetry-dashboard",
+  "version": "1.0.0",
+  "description": "AWS EC2 hosted UDP telemetry dashboard for two devices.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node scripts/smoke-test.js",
+    "send:test:device1": "node scripts/send-udp-test.js device_1 rotation 24.7",
+    "send:test:device2": "node scripts/send-udp-test.js device_2 rotation 18.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

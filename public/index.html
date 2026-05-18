@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UDP Telemetry Dashboard</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <span>Telemetry</span>
+        </div>
+        <nav>
+          <a class="active" href="#">Overview</a>
+          <a href="#">Devices</a>
+          <a href="#">Messages</a>
+          <a href="#">System</a>
+        </nav>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <h1>UDP Telemetry Dashboard</h1>
+            <p>Live rotation telemetry from external UDP devices.</p>
+          </div>
+          <div class="connection-pill" id="connectionStatus">Connecting</div>
+        </header>
+
+        <section class="system-grid" aria-label="System status">
+          <article class="metric-card">
+            <span class="metric-label">UDP Port</span>
+            <strong id="udpPort">5005</strong>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">Messages/min</span>
+            <strong id="messagesPerMinute">0</strong>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">Invalid messages</span>
+            <strong id="invalidMessages">0</strong>
+          </article>
+        </section>
+
+        <section class="device-grid" aria-label="Live devices">
+          <article class="device-card" data-device-card="device_1">
+            <div class="device-header">
+              <div>
+                <h2>Device 1</h2>
+                <span class="muted">device_1</span>
+              </div>
+              <span class="status offline" data-status="device_1">Offline</span>
+            </div>
+            <div class="reading">
+              <span>Current rotation</span>
+              <strong><span data-value="device_1">--</span> rpm</strong>
+            </div>
+            <div class="last-update">Last update: <span data-time="device_1">Waiting for data</span></div>
+            <h3>Rotation history</h3>
+            <canvas data-chart="device_1" width="640" height="240"></canvas>
+          </article>
+
+          <article class="device-card" data-device-card="device_2">
+            <div class="device-header">
+              <div>
+                <h2>Device 2</h2>
+                <span class="muted">device_2</span>
+              </div>
+              <span class="status offline" data-status="device_2">Offline</span>
+            </div>
+            <div class="reading">
+              <span>Current rotation</span>
+              <strong><span data-value="device_2">--</span> rpm</strong>
+            </div>
+            <div class="last-update">Last update: <span data-time="device_2">Waiting for data</span></div>
+            <h3>Rotation history</h3>
+            <canvas data-chart="device_2" width="640" height="240"></canvas>
+          </article>
+        </section>
+
+        <section class="table-section">
+          <div class="section-header">
+            <h2>Latest UDP Messages</h2>
+            <button id="clearView" type="button">Clear view</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Device</th>
+                  <th>Key</th>
+                  <th>Value</th>
+                  <th>Source</th>
+                </tr>
+              </thead>
+              <tbody id="messagesTable">
+                <tr>
+                  <td colspan="5" class="empty">Waiting for UDP messages</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
