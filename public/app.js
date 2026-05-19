@@ -14,6 +14,7 @@ const ORIENT_COLORS = { x: "#246bfe", y: "#14945f", z: "#f59e0b" };
 const TEMP_COLOR = "#e05050";
 
 function getVal(reading, key) {
+  if (!Array.isArray(reading.values)) return null;
   const entry = reading.values.find((v) => v.key === key);
   return entry != null ? entry.value : null;
 }
