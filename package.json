@@ -7,8 +7,8 @@
     "start": "node server.js",
     "dev": "node server.js",
     "test": "node scripts/smoke-test.js",
-    "send:test:device1": "node scripts/send-udp-test.js device_1 rotation 24.7",
-    "send:test:device2": "node scripts/send-udp-test.js device_2 rotation 18.3"
+    "send:test:device1": "node scripts/send-udp-test.js device_1",
+    "send:test:device2": "node scripts/send-udp-test.js device_2"
   },
   "engines": {
     "node": ">=18"

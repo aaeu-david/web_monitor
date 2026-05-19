@@ -25,7 +25,7 @@
         <header class="topbar">
           <div>
             <h1>UDP Telemetry Dashboard</h1>
-            <p>Live rotation telemetry from external UDP devices.</p>
+            <p>Live orientation and temperature telemetry from external UDP devices.</p>
           </div>
           <div class="connection-pill" id="connectionStatus">Connecting</div>
         </header>
@@ -46,6 +46,7 @@
         </section>
 
         <section class="device-grid" aria-label="Live devices">
+
           <article class="device-card" data-device-card="device_1">
             <div class="device-header">
               <div>
@@ -54,13 +55,40 @@
               </div>
               <span class="status offline" data-status="device_1">Offline</span>
             </div>
-            <div class="reading">
-              <span>Current rotation</span>
-              <strong><span data-value="device_1">--</span> rpm</strong>
+
+            <div class="values-grid">
+              <div class="value-item">
+                <span class="value-label">X</span>
+                <strong><span data-value="device_1-x">--</span></strong>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Y</span>
+                <strong><span data-value="device_1-y">--</span></strong>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Z</span>
+                <strong><span data-value="device_1-z">--</span></strong>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Temperature</span>
+                <strong><span data-value="device_1-temperature">--</span> <span class="value-unit">°C</span></strong>
+              </div>
             </div>
+
             <div class="last-update">Last update: <span data-time="device_1">Waiting for data</span></div>
-            <h3>Rotation history</h3>
-            <canvas data-chart="device_1" width="640" height="240"></canvas>
+
+            <div class="chart-header">
+              <h3>Orientation</h3>
+              <div class="legend">
+                <span class="legend-item"><span class="legend-dot" style="background:#246bfe"></span>X</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#14945f"></span>Y</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>Z</span>
+              </div>
+            </div>
+            <canvas class="chart-orient" data-chart="device_1-orientation" width="640" height="175"></canvas>
+
+            <h3>Temperature</h3>
+            <canvas class="chart-temp" data-chart="device_1-temperature" width="640" height="120"></canvas>
           </article>
 
           <article class="device-card" data-device-card="device_2">
@@ -71,14 +99,42 @@
               </div>
               <span class="status offline" data-status="device_2">Offline</span>
             </div>
-            <div class="reading">
-              <span>Current rotation</span>
-              <strong><span data-value="device_2">--</span> rpm</strong>
+
+            <div class="values-grid">
+              <div class="value-item">
+                <span class="value-label">X</span>
+                <strong><span data-value="device_2-x">--</span></strong>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Y</span>
+                <strong><span data-value="device_2-y">--</span></strong>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Z</span>
+                <strong><span data-value="device_2-z">--</span></strong>
+              </div>
+              <div class="value-item">
+                <span class="value-label">Temperature</span>
+                <strong><span data-value="device_2-temperature">--</span> <span class="value-unit">°C</span></strong>
+              </div>
             </div>
+
             <div class="last-update">Last update: <span data-time="device_2">Waiting for data</span></div>
-            <h3>Rotation history</h3>
-            <canvas data-chart="device_2" width="640" height="240"></canvas>
+
+            <div class="chart-header">
+              <h3>Orientation</h3>
+              <div class="legend">
+                <span class="legend-item"><span class="legend-dot" style="background:#246bfe"></span>X</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#14945f"></span>Y</span>
+                <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>Z</span>
+              </div>
+            </div>
+            <canvas class="chart-orient" data-chart="device_2-orientation" width="640" height="175"></canvas>
+
+            <h3>Temperature</h3>
+            <canvas class="chart-temp" data-chart="device_2-temperature" width="640" height="120"></canvas>
           </article>
+
         </section>
 
         <section class="table-section">
@@ -92,14 +148,16 @@
                 <tr>
                   <th>Time</th>
                   <th>Device</th>
-                  <th>Key</th>
-                  <th>Value</th>
+                  <th>X</th>
+                  <th>Y</th>
+                  <th>Z</th>
+                  <th>Temp (°C)</th>
                   <th>Source</th>
                 </tr>
               </thead>
               <tbody id="messagesTable">
                 <tr>
-                  <td colspan="5" class="empty">Waiting for UDP messages</td>
+                  <td colspan="7" class="empty">Waiting for UDP messages</td>
                 </tr>
               </tbody>
             </table>

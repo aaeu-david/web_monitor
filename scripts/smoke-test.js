@@ -59,19 +59,40 @@ async function main() {
 
   try {
     await waitForServer();
-    await sendUdp({ device_id: "device_1", key: "rotation", value: 24.7 });
-    await sendUdp({ device_id: "device_2", key: "rotation", value: 18.3 });
+
+    await sendUdp({
+      device_id: "device_1",
+      values: [
+        { key: "x", value: 0.12 },
+        { key: "y", value: -0.45 },
+        { key: "z", value: 9.81 },
+        { key: "temperature", value: 24.7 }
+      ]
+    });
+
+    await sendUdp({
+      device_id: "device_2",
+      values: [
+        { key: "x", value: -0.05 },
+        { key: "y", value: 0.32 },
+        { key: "z", value: 9.78 },
+        { key: "temperature", value: 22.3 }
+      ]
+    });
+
     await wait(250);
 
-    const summary = await fetch(`${BASE_URL}/api/summary`).then((response) => response.json());
+    const summary = await fetch(`${BASE_URL}/api/summary`).then((r) => r.json());
     const device1 = summary.devices.device_1.latest;
     const device2 = summary.devices.device_2.latest;
 
-    if (!device1 || device1.value !== 24.7) {
+    const d1temp = device1?.values?.find((v) => v.key === "temperature")?.value;
+    if (!device1 || d1temp !== 24.7) {
       throw new Error("Device 1 reading was not stored correctly.");
     }
 
-    if (!device2 || device2.value !== 18.3) {
+    const d2temp = device2?.values?.find((v) => v.key === "temperature")?.value;
+    if (!device2 || d2temp !== 22.3) {
       throw new Error("Device 2 reading was not stored correctly.");
     }
 

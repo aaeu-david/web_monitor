@@ -51,12 +51,20 @@ function validateReading(payload) {
     return "device_id must be device_1 or device_2.";
   }
 
-  if (typeof payload.key !== "string" || payload.key.trim() === "") {
-    return "key must be a non-empty string.";
+  if (!Array.isArray(payload.values) || payload.values.length === 0) {
+    return "values must be a non-empty array.";
   }
 
-  if (typeof payload.value !== "number" || !Number.isFinite(payload.value)) {
-    return "value must be a finite number.";
+  for (const entry of payload.values) {
+    if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+      return "Each entry in values must be an object.";
+    }
+    if (typeof entry.key !== "string" || entry.key.trim() === "") {
+      return "Each entry in values must have a non-empty string key.";
+    }
+    if (typeof entry.value !== "number" || !Number.isFinite(entry.value)) {
+      return "Each entry in values must have a finite number value.";
+    }
   }
 
   return null;
@@ -198,8 +206,7 @@ udpServer.on("message", (message, remote) => {
 
   addReading({
     device_id: payload.device_id,
-    key: payload.key,
-    value: payload.value,
+    values: payload.values,
     received_at: new Date().toISOString(),
     source: `${remote.address}:${remote.port}`
   });

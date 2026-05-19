@@ -5,7 +5,15 @@ Dashboard web para visualizar telemetria UDP enviada por dos dispositivos extern
 Formato esperado del mensaje UDP:
 
 ```json
-{"device_id":"device_1","key":"rotation","value":24.7}
+{
+  "device_id": "device_1",
+  "values": [
+    {"key": "x", "value": 0.12},
+    {"key": "y", "value": -0.45},
+    {"key": "z", "value": 9.81},
+    {"key": "temperature", "value": 24.7}
+  ]
+}
 ```
 
 Dispositivos aceptados:
